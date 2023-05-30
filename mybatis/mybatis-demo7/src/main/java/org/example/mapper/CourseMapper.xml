@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.CourseMapper">
+
+    <resultMap id="courseAndScoreMap" type="course">
+        <id property="cId" column="cId"/>
+        <result property="cName" column="cName"/>
+        <result property="creditPoint" column="creditPoint"/>
+        <collection property="scores" ofType="score">
+            <id property="sId" column="sId"/>
+            <result property="score" column="score"/>
+        </collection>
+    </resultMap>
+
+    <!--    列出每门课程的多项成绩信息-->
+    <select id="queryCourseAndScore" resultMap="courseAndScoreMap">
+        select s.*, c.*
+        from score s,
+             course c
+        where s.cId = c.Cid
+    </select>
+
+</mapper>

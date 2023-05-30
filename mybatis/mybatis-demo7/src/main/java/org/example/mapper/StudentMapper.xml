@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.StudentMapper">
+
+    <resultMap id="studentAndCourseMap" type="student">
+        <id property="sId" column="sId"/>
+        <result property="sName" column="sName"/>
+        <result property="sClass" column="sClass"/>
+        <result property="sMajor" column="sMajor"/>
+        <result property="sBirthday" column="sBirthday"/>
+        <result property="sSex" column="sSex"/>
+        <result property="creditPoint" column="creditPoint"/>
+        <collection property="courses" ofType="course">
+            <id property="cId" column="cId"/>
+            <result property="tId" column="tId"/>
+            <result property="cName" column="cName"/>
+            <result property="creditPoint" column="creditPoint"/>
+        </collection>
+    </resultMap>
+
+    <!--    列出与每门课成绩都大于等于 80 分的所有学生信息以及对应的课程信息-->
+    <select id="queryStudentAndCourse" resultMap="studentAndCourseMap">
+        select s.*, c.*
+        from score s,
+             course c,
+             (select sId, cId from score where score >= 80) s_c
+        where s.sId = s_c.sId
+          and c.cId = s_c.cId
+    </select>
+</mapper>
