@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="org.mikudd3.test.TestEmployee" time="0.473" tests="6" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.class.path" value="E:\Java\code\Mybatis-demo\target\test-classes;E:\Java\code\Mybatis-demo\target\classes;E:\Java\apache-maven-3.9.2\mvn_resp\org\mybatis\mybatis\3.5.13\mybatis-3.5.13.jar;E:\Java\apache-maven-3.9.2\mvn_resp\com\mysql\mysql-connector-j\8.0.32\mysql-connector-j-8.0.32.jar;E:\Java\apache-maven-3.9.2\mvn_resp\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;E:\Java\apache-maven-3.9.2\mvn_resp\junit\junit\4.13\junit-4.13.jar;E:\Java\apache-maven-3.9.2\mvn_resp\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Hong_Kong"/>
+    <property name="user.country.format" value="HK"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.boot.library.path" value="E:\Java\java17\bin"/>
+    <property name="sun.java.command" value="C:\Users\mikudd\AppData\Local\Temp\surefire2007812842531901164\surefirebooter-20230529184504257_3.jar C:\Users\mikudd\AppData\Local\Temp\surefire2007812842531901164 2023-05-29T18-45-04_051-jvmRun1 surefire-20230529184504257_1tmp surefire_0-20230529184504257_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="E:\Java\code\Mybatis-demo\target\test-classes;E:\Java\code\Mybatis-demo\target\classes;E:\Java\apache-maven-3.9.2\mvn_resp\org\mybatis\mybatis\3.5.13\mybatis-3.5.13.jar;E:\Java\apache-maven-3.9.2\mvn_resp\com\mysql\mysql-connector-j\8.0.32\mysql-connector-j-8.0.32.jar;E:\Java\apache-maven-3.9.2\mvn_resp\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;E:\Java\apache-maven-3.9.2\mvn_resp\junit\junit\4.13\junit-4.13.jar;E:\Java\apache-maven-3.9.2\mvn_resp\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\mikudd"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2022-10-18"/>
+    <property name="java.home" value="E:\Java\java17"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="E:\Java\code\Mybatis-demo"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\mikudd\AppData\Local\Temp\surefire2007812842531901164\surefirebooter-20230529184504257_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="user.script.format" value="Hans"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.5+9-LTS-191"/>
+    <property name="user.name" value="mikudd"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="GBK"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="E:\Java\apache-maven-3.9.2\mvn_resp"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\mikudd\AppData\Local\Temp\"/>
+    <property name="idea.version" value="2022.3.2"/>
+    <property name="java.version" value="17.0.5"/>
+    <property name="user.dir" value="E:\Java\code\Mybatis-demo"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="GBK"/>
+    <property name="java.library.path" value="E:\Java\java17\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;E:\Java\java17\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;E:\Java\apache-maven-3.9.2\bin;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\新建文件夹\Bandizip\;C:\P;ogram Files\dotnet\;C:\TDM-GCC-64\bin;E:\Java\java17\jre\bin;C:\Users\mikudd\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.10;E:\Git\cmd;C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\mikudd\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\mikudd\AppData\Local\Programs\Python\Python310\;C:\Users\mikudd\AppData\Local\Microsoft\WindowsApps;C:\Users\mikudd\.dotnet\tools;E:\Microsoft VS Code\bin;C:\Users\mikudd\AppData\Local\GitHubDesktop\bin;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="17.0.5+9-LTS-191"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="testDeleteEmployee" classname="org.mikudd3.test.TestEmployee" time="0.074"/>
+  <testcase name="testDeleteByENoWithProcedure" classname="org.mikudd3.test.TestEmployee" time="0.081">
+    <system-out><![CDATA[影响的行数：0
+]]></system-out>
+  </testcase>
+  <testcase name="testQueryEmployeeByNo" classname="org.mikudd3.test.TestEmployee" time="0.088">
+    <system-out><![CDATA[{ eNo='7369', eName='刘一', job='职员', mgr='7902', hireDate='Wed Dec 17 00:00:00 HKT 1980', sal='800.0', comm='0.0'}
+]]></system-out>
+  </testcase>
+  <testcase name="testQueryCountByNameWithProcedure" classname="org.mikudd3.test.TestEmployee" time="0.081">
+    <system-out><![CDATA[名字相同的人的个数：0
+]]></system-out>
+  </testcase>
+  <testcase name="testUpdateEmployee" classname="org.mikudd3.test.TestEmployee" time="0.074">
+    <system-out><![CDATA[{ eNo='7935', eName='蓝桥', job='推销员', mgr='7689', hireDate='Mon May 29 18:45:07 HKT 2023', sal='6000.0', comm='300.0'}
+]]></system-out>
+  </testcase>
+  <testcase name="testInsertEmployee" classname="org.mikudd3.test.TestEmployee" time="0.07">
+    <system-out><![CDATA[{ eNo='7935', eName='小蓝', job='推销员', mgr='7689', hireDate='Mon May 29 18:45:07 HKT 2023', sal='6000.0', comm='300.0'}
+]]></system-out>
+  </testcase>
+</testsuite>

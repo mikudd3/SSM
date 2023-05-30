@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.mikudd3.test.TestBrand
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.636 s - in org.mikudd3.test.TestBrand

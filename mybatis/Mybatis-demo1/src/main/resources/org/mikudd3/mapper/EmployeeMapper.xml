@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+
+<mapper namespace="org.mikudd3.mapper.EmployeeMapper">
+    <!-- 新增一个员工的信息 -->
+    <insert id="insertEmployee" parameterType="org.mikudd3.pojo.Employee" useGeneratedKeys="true" keyProperty="eNo"
+            keyColumn="eNo">
+        insert into emp(eNo,eName,job,mgr,hireDate,sal,comm,dNo)
+        values(#{eNo},#{eName},#{job},#{mgr},#{hireDate},#{sal},#{comm},#{dNo})
+    </insert>
+
+    <!-- 根据员工编号，删除一个员工的信息 -->
+    <delete id="deleteEmployeeByNo" parameterType="int">
+        delete from emp where eNo=#{eNo}
+    </delete>
+
+    <!-- 根据员工编号，修改员工信息 -->
+    <update id="updateEmployeeByNo" parameterType="org.mikudd3.pojo.Employee">
+        update emp set eName=#{eName}, job=#{job}, mgr=#{mgr}, hireDate=#{hireDate},
+        sal=#{sal}, comm=#{comm}, dNo=#{dNo} where eNo=#{eNo}
+    </update>
+
+    <!-- 根据员工编号查询员工信息 -->
+    <select id="queryEmployeeByNo" parameterType="int" resultType="org.mikudd3.pojo.Employee">
+        select * from emp where eNo=#{eNo}
+    </select>
+
+    <!-- 根据员工姓名和岗位查询员工信息
+          如果 eName 为空，就只根据 job 查询；反之只根据 eName 查询。
+      -->
+    <select id="queryEmployeeByNameAndJob" resultType="org.mikudd3.pojo.Employee">
+        select * from emp
+        <where>
+            <if test="eName != null and eName !=''">
+                and eName=#{eName}
+            </if>
+            <if test="job != null and job !=''">
+                and job=#{job}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据员工编号修改员工信息
+         字段有变化就更新，没有变化保持原值
+     -->
+    <update id="updateEmployee" parameterType="org.mikudd3.pojo.Employee">
+        update emp
+        <set>
+            <if test="eName != null and eName !=''">
+                eName=#{eName},
+            </if>
+            <if test="job != null and job !=''">
+                job=#{job},
+            </if>
+            <if test="mgr != null and mgr !=0">
+                mgr=#{mgr},
+            </if>
+            <if test="hireDate != null">
+                hireDate=#{hireDate},
+            </if>
+            <if test="sal != null and sal !=''">
+                sal=#{sal},
+            </if>
+            <if test="comm != null and comm !=''">
+                comm=#{comm},
+            </if>
+            <if test="dNo != null and dNo !=0">
+                dNo=#{dNo},
+            </if>
+        </set>
+        where eNo=#{eNo}
+    </update>
+
+    <!-- 根据员工编号或者员工姓名或者岗位查询员工信息
+        多个过滤条件不能同时出现，查询条件有一个满足即可。
+    -->
+    <select id="queryEmployeeByEnoOrNameOrJob" parameterType="org.mikudd3.pojo.Employee"
+            resultType="org.mikudd3.pojo.Employee">
+        select * from emp
+        <where>
+            <choose>
+                <when test="eNo != null and eNo !=0">
+                    and eNo=#{eNo}
+                </when>
+                <when test="eName != null and eName !=''">
+                    and eName=#{eName}
+                </when>
+                <otherwise>
+                    and job=#{job}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+
+    <!-- 根据员工姓名和岗位查询员工信息
+          如果 eName 为空，就只根据 job 查询；反之只根据 eName 查询。
+      -->
+    <!--<select id="queryEmployeeByNameAndJob" resultType="Employee">
+        select * from emp
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="eName != null and eName !=''">
+                and eName=#{eName}
+            </if>
+            <if test="job != null and job !=''">
+                and job=#{job}
+            </if>
+        </trim>
+    </select>-->
+
+    <!-- 查询员工编号为 7369、7499、7521 这三个员工的信息。 -->
+    <select id="queryEmployeeWithForeachAndList" parameterType="List" resultType="org.mikudd3.pojo.Employee">
+        select * from emp
+        <where>
+            <if test="list !=null and list.size > 0">
+                <foreach collection="list" open=" eNo in(" close=")" item="eNo" separator=",">
+                    #{eNo}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <!-- 调用存储过程，查询同名的员工人数 -->
+    <select id="queryCountByNameWithProcedure" statementType="CALLABLE" useCache="false">
+        {
+        CALL query_count_byName(
+        #{empName,jdbcType=VARCHAR,mode=IN},
+        #{eCount,jdbcType= INTEGER,mode=OUT}
+        )
+        }
+    </select>
+
+    <!-- 调用存储过程，删除指定员工编号的员工 -->
+    <delete id="deleteByENoWithProcedure" statementType="CALLABLE">
+        {
+        CALL delete_byENo(
+        #{eNo,jdbcType=NUMERIC,mode=IN}
+        )
+        }
+    </delete>
+</mapper>

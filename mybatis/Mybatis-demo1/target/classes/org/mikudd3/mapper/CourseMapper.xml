@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+
+<mapper namespace="org.mikudd3.mapper.CourseMapper">
+
+    <resultMap id="courseResultMap" type="org.mikudd3.pojo.Course">
+        <id property="cNo" column="cNo"/>
+        <result property="cName" column="cName"/>
+        <result property="teacher" column="teacher"/>
+        <!--        <result property="cProperties" column="cProperties" javaType="java.lang.Boolean" jdbcType="INTEGER"/>-->
+    </resultMap>
+
+    <!--    查询所有课程的信息。-->
+    <select id="queryAll" resultType="org.mikudd3.pojo.Course">
+        select * from course;
+    </select>
+
+    <!--    新增一条课程信息。-->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        insert into course(cNo,cName,teacher)
+        values
+        (#{cNo},#{cName},#{teacher});
+    </insert>
+
+    <!--<insert id="add" useGeneratedKeys="true" keyProperty="id">
+        insert into course(cNo,cName,teacher,cProperties)
+        values
+        (#{cNo},#{cName},#{teacher},#{cProperties, javaType=java.lang.Boolean, jdbcType=INTEGER});
+    </insert>-->
+
+    <!--    将课程编号为 1 的课程名改为 “软件测试”，授课老师改为 “李珍”。-->
+    <update id="update">
+        update course
+        set
+        cName = #{cName},teacher = #{teacher}
+        where cNo = #{cNo};
+    </update>
+    <!--
+        <update id="update">
+            update course
+            set
+            cName = #{cName},teacher = #{teacher},cProperties = #{cProperties, javaType=java.lang.Boolean, jdbcType=INTEGER}
+            where cNo = #{cNo};
+        </update>
+    -->
+    <!--    删除课程编号为 7 的课程信息。-->
+    <delete id="deleteById">
+        delete from course
+        where cNo = #{cNo};
+    </delete>
+    <!--使用模糊查询，查询出授课老师名字带有 “张” 的课程的信息并按照课程编号降序排序
+    （需要使用 HashMap 作为输入参数，并且需要用 ${} 和 #{} 两种方式获取值）。-->
+    <select id="selectLike" resultType="org.mikudd3.pojo.Course" parameterType="hashmap">
+        select * from course
+        where teacher like #{teacher}
+        order by cNo desc
+    </select>
+
+
+    <!--    想课程表中批量加入数据，并使用foreach标签-->
+    <insert id="insertForEach" parameterType="java.util.List">
+        insert into course(cNo,cName,teacher)
+        values
+        <foreach collection="list" item="course" separator=",">
+            (#{course.cNo},#{course.cName},#{course.teacher})
+        </foreach>
+    </insert>
+
+
+    <!--查询课程名中带有大写 “C” 开头的课程信息，
+    使用动态 SQL 判断输入参数是否为空，
+    如果为空查询出所有的课程信息，使用 resultMap 来指定结果集的映射，-->
+    <!-- 动态 SQL 查询课程信息 -->
+    <select id="selectCoursesByName" parameterType="java.lang.String" resultMap="courseResultMap">
+        SELECT cNo, cName, teacher
+        FROM course
+        <where>
+            <if test="cName != null and cName != ''">
+                AND cName LIKE CONCAT('%',#{cName},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--将课程编号为 “7” 的授课老师改为“小蓝”，
+    其它不变（使用动态 SQL 判断为空的不需要修改，
+    直接跳过，需要使用动态 SQL 中的 <trim> 标签实现）。-->
+    <!-- 动态 SQL 根据课程编号更新授课老师 -->
+    <update id="updateTeacherByCourseId" parameterType="java.util.Map">
+        UPDATE course
+        <set>
+            <trim suffixOverrides=",">
+                <if test="teacher != null">
+                    teacher = #{teacher},
+                </if>
+            </trim>
+        </set>
+        WHERE cNo = #{cNo}
+    </update>
+
+
+    <!--批量查询课程编号为 【1,2,3】的课程信息
+    （使用动态 SQL 进行批量查询，即 <foreach>，查询的结果需要使用 HashMap 来接收）。-->
+    <!-- 动态 SQL 查询课程信息 -->
+    <select id="selectCoursesByIdList" parameterType="java.util.List" resultType="java.util.HashMap">
+        SELECT *
+        FROM course
+        WHERE cNo IN
+        <foreach collection="list" item="cNo" open="(" close=")" separator=",">
+            #{cNo}
+        </foreach>
+    </select>
+</mapper>
