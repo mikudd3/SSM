@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+<mapper namespace="org.mikudd3.mapper.StudentMapper">
+    <select id="queryStudentAndCardBusinessByStuNo"
+            parameterType="int" resultType="org.mikudd3.pojo.StudentAndCardBusiness">
+        select s.*,c.* from student s
+        inner join studentCard c on s.cardId = c.cardId
+        where s.stuNo = #{stuNo}
+    </select>
+</mapper>
