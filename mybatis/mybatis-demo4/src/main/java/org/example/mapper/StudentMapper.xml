@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.IStudentMapper">
+    <select id="queryClassAndStudentsByClassId" parameterType="int" resultMap="classAndStudentMap">
+        select s.*, sc.*
+        from student s
+                 inner join studentClass sc
+                            on s.classid = sc.classid
+        where sc.classid = #{classId}
+    </select>
+
+    <resultMap type="studentClass" id="classAndStudentMap">
+        <id property="classId" column="classId"/>
+        <result property="className" column="className"/>
+
+        <collection property="students" ofType="student">
+            <id property="stuNo" column="stuNo"/>
+            <result property="stuName" column="stuName"/>
+            <result property="stuAge" column="stuAge"/>
+            <result property="graName" column="graName"/>
+        </collection>
+    </resultMap>
+</mapper>

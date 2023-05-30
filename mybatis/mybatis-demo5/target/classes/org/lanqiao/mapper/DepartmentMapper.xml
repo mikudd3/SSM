@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lanqiao.mapper.DepartmentMapper">
+    <!-- 使用 resultMap 进行结果集的映射 -->
+    <resultMap type="Department" id="departMentAndJobMap">
+        <id property="dNo" column="dNo"/>
+        <result property="dName" column="dName"/>
+        <result property="mgrNo" column="mgrNo"/>
+
+        <!-- collection：用来一对多查询，关联级联查询  -->
+        <collection property="jobs" ofType="Job">
+            <id property="jNo" column="jNo"/>
+            <result property="job" column="job"/>
+            <result property="dNo" column="dNo"/>
+        </collection>
+    </resultMap>
+
+    <!-- 根据部门编号查询部门信息以及部门下的所有岗位信息 -->
+    <select id="queryDepartmentAndAllJobByDNo" parameterType="string" resultMap="departMentAndJobMap">
+        select d.*, j.*
+        from department d
+                 inner join job j on d.dNo = j.dNo
+        where d.dNo = #{dNo}
+    </select>
+</mapper>

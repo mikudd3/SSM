@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mikudd3.mapper.TeacherMapper">
+    <!-- 使用 resultMap 进行结果集的映射 -->
+    <resultMap type="teacher" id="teacherAndCourseMap">
+        <id property="tId" column="tId"/>
+        <result property="tName" column="tName"/>
+        <result property="tSchool" column="tSchool"/>
+
+        <!-- collection：用来一对多查询，关联级联查询  -->
+        <collection property="courses" ofType="course">
+            <id property="cId" column="cId"/>
+            <result property="tId" column="tId"/>
+            <result property="cName" column="cName"/>
+            <result property="creditPoint" column="creditPoint"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryTeacherAndAllCourseById" parameterType="long" resultMap="teacherAndCourseMap">
+        select t.*, c.*
+        from teacher t
+                 inner join course c on t.tid = c.cid
+        where t.tid = #{tid}
+    </select>
+</mapper>
