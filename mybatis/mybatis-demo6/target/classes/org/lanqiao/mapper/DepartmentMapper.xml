@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lanqiao.mapper.DepartmentMapper">
+    <!-- 根据项目编号查询参与该项目的所有员工信息 -->
+    <resultMap id="employeeResultMap" type="Employee" autoMapping="true">
+        <id property="eNo" column="eNo"/>
+    </resultMap>
+
+    <select id="queryAllEmployeeByPNo"
+            parameterType="string" resultMap="employeeResultMap">
+        select e.*
+        from employee e,
+             emp_pro_r epr
+        where e.eNo = epr.eNo
+          and epr.pNo = #{pNo}
+    </select>
+
+    <!-- 根据员工编号查询该员工参与的所有项目信息 -->
+    <resultMap id="projectResultMap" type="Project" autoMapping="true">
+        <id property="pNo" column="pNo"/>
+    </resultMap>
+
+    <select id="queryAllProjectByEno"
+            parameterType="string" resultMap="projectResultMap">
+        select p.*
+        from project p,
+             emp_pro_r epr
+        where p.pNo = epr.pNo
+          and epr.eNo = #{eNo}
+    </select>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mikudd3.mapper.StudentMapper">
+
+    <resultMap type="org.mikudd3.pojo.Student"
+               id="studentsWithCoursesMap">
+        <id property="sId" column="sId"/>
+        <result property="sName" column="sName"/>
+        <result property="sClass" column="sClass"/>
+        <result property="sMajor" column="sMajor"/>
+        <result property="sBirthday" column="sBirthday"/>
+        <result property="sSex" column="sSex"/>
+        <result property="creditPoint" column="creditPoint"/>
+        <collection property="courseList" ofType="org.mikudd3.pojo.Course">
+            <id property="cId" column="cId"/>
+            <result property="tId" column="tId"/>
+            <result property="cName" column="cName"/>
+            <result property="creditPoint" column="creditPoint"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryStudentAndCourseBySNo"
+            parameterType="integer" resultMap="studentsWithCoursesMap">
+        select s.*, c.*
+        from student s,
+             course c,
+             score sc
+        where s.sId = sc.sId
+          and sc.cId = c.cId
+          and s.sId = #{sId}
+    </select>
+
+</mapper>

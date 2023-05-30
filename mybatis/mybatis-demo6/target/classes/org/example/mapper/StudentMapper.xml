@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.IStudentMapper">
+    <!-- 多对多的查询 -->
+    <select id="queryStudentsAndCourses"
+            resultMap="studentsAndCoursesMap">
+        select s.*, sc.*, c.*
+        from student s
+                 left join studentCourse sc on s.stuNo = sc.stuNo
+                 left join course c on c.courseNo = sc.courseNo
+    </select>
+
+    <resultMap type="org.example.pojo.Student" id="studentsAndCoursesMap">
+        <id property="stuNo" column="stuNo"/>
+        <result property="stuName" column="stuName"/>
+        <result property="stuAge" column="stuAge"/>
+        <result property="graName" column="graName"/>
+        <collection property="courses" ofType="org.example.pojo.Course">
+            <id property="courseNo" column="courseNo"/>
+            <result property="courseName" column="courseName"/>
+        </collection>
+    </resultMap>
+</mapper>

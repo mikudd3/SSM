@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lanqiao.mapper.EmployeeMapper">
+    <!-- 根据员工编号查询该员工信息 -->
+    <resultMap id="employeeResultMap"
+               type="Employee" autoMapping="true">
+        <id property="eNo" column="eNo"/>
+        <!-- 调用关联表的中方法，根据员工编号查询所参与的项目，并封装到 projects 属性中 -->
+        <collection property="projects"
+                    column="eNo"
+                    select="org.lanqiao.mapper.EmpProRMapper.queryAllProjectByEno" />
+    </resultMap>
+
+    <select id="queryEmployeeByEno"
+            parameterType="string" resultMap="employeeResultMap">
+        select * from employee where eNo=#{eNo}
+    </select>
+</mapper>
