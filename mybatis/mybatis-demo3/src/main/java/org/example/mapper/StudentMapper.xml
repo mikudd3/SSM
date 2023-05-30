@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.StudentMapper">
+
+    <resultMap id="studentResultMap" type="Student">
+        <id property="sId" column="sId"/>
+        <result property="sName" column="sName"/>
+        <result property="sClass" column="sClass"/>
+        <result property="sMajor" column="sMajor"/>
+        <result property="sBirthday" column="sBirthday"/>
+        <result property="sSex" column="sSex"/>
+        <result property="creditPoint" column="creditPoint"/>
+        <association property="card" resultMap="cardResultMap"/>
+    </resultMap>
+
+    <resultMap id="cardResultMap" type="card">
+        <id property="cardId" column="cardId"/>
+        <result property="sName" column="sName"/>
+        <result property="cardInfo" column="cardInfo"/>
+    </resultMap>
+
+    <!--    查询出所有学生以及学生所对应的学生证信息。 这里采用 resultMap 去实现一对一查询。-->
+    <select id="selectStudentWithCard" resultMap="studentResultMap">
+        SELECT s.*, c.*
+        FROM student s,
+             card c
+        where s.sid = c.sid
+    </select>
+
+
+</mapper>
